@@ -3,9 +3,9 @@ import shutil
 
 image_types = ['png', 'gif', 'jpg', 'mp4']
 source_types = ['psd', 'clip']
-archive = Path('H:/Archives')
-finished = Path('finished')
-temp = Path('temp')
+archive = Path('H:/Archives/current')
+finished = Path('H:/Art/finished')
+temp = Path('H:/Art/temp')
 
 def arch_dir(file, subname):
     year = file.name[:4]

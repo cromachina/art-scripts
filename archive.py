@@ -2,6 +2,7 @@ import argparse
 import os
 import re
 import secrets
+import pathlib
 
 def gen_key(key_file):
     key = secrets.token_hex(16)
@@ -31,10 +32,13 @@ def archive_everything(archive_name, key=None):
     zip(archive_name, archive_name, get_key(f'{key}-key.txt'))
 
 def archive_imgs_psds():
-    year = '2023'
-    key_file = f'{year}-archive'
-    archive_everything(f'{year}-images', key_file)
-    archive_everything(f'{year}-psds', key_file)
+    reg = re.compile('(\d+)')
+    for name in os.listdir():
+        if pathlib.Path(name).is_dir():
+            res = reg.match(name)
+            year = res[0]
+            key_file = f'{year}-archive'
+            archive_everything(name, key_file)
 
 def get_archive_name():
     for name in os.listdir():
