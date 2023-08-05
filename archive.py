@@ -36,9 +36,10 @@ def archive_imgs_psds():
     for name in os.listdir():
         if pathlib.Path(name).is_dir():
             res = reg.match(name)
-            year = res[0]
-            key_file = f'{year}-archive'
-            archive_everything(name, key_file)
+            if res is not None:
+                year = res[0]
+                key_file = f'{year}-archive'
+                archive_everything(name, key_file)
 
 def get_archive_name():
     for name in os.listdir():
