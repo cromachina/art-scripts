@@ -4,8 +4,13 @@ import shutil
 image_types = ['png', 'gif', 'jpg', 'mp4']
 source_types = ['psd', 'clip']
 archive = Path('H:/Archives/current')
+keys = archive / 'keys'
 finished = Path('H:/Art/finished')
 temp = Path('H:/Art/temp')
+
+def copy(src, dst):
+    shutil.copy2(src, dst)
+    print(f'{src} -> {dst}')
 
 def arch_dir(file, subname):
     year = file.name[:4]
@@ -15,10 +20,13 @@ def arch_dir(file, subname):
 for type in image_types:
     for file in temp.glob('*.' + type):
         images = arch_dir(file, 'images')
-        shutil.copy2(file, images)
-        shutil.copy2(file, finished)
+        copy(file, images)
+        copy(file, finished)
 
 for type in source_types:
     for file in temp.glob('*.' + type):
         psds = arch_dir(file, 'psds')
-        shutil.copy2(file, psds)
+        copy(file, psds)
+
+for file in temp.glob('*-key.txt'):
+    copy(file, keys)
