@@ -49,13 +49,13 @@ def get_archive_name():
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--e', action=argparse.BooleanOptionalAction)
-    parser.add_argument('--g', action=argparse.BooleanOptionalAction)
+    parser.add_argument('--everything', action=argparse.BooleanOptionalAction)
+    parser.add_argument('--gen-key', action=argparse.BooleanOptionalAction)
     parser.add_argument('--name', type=str, default='')
     args = parser.parse_args()
-    if args.e:
+    if args.everything:
         archive_imgs_psds()
-    elif args.g:
+    elif args.gen_key:
         gen_key(args.name)
     elif args.name != '':
         archive_work(args.name)

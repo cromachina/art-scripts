@@ -3,10 +3,10 @@ import shutil
 
 image_types = ['png', 'gif', 'jpg', 'mp4']
 source_types = ['psd', 'clip']
-archive = Path('H:/Archives/current')
+archive = Path('H:/archives/current')
 keys = archive / 'keys'
-finished = Path('H:/Art/finished')
-temp = Path('H:/Art/temp')
+finished = Path('H:/art/finished')
+temp = Path('H:/art/temp')
 
 def copy(src, dst):
     shutil.copy2(src, dst)
