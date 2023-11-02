@@ -32,7 +32,7 @@ def archive_everything(archive_name, key=None):
     zip(archive_name, archive_name, get_key(f'{key}-key.txt'))
 
 def archive_imgs_psds():
-    reg = re.compile('(\d+)')
+    reg = re.compile('(\\d+)')
     for name in os.listdir():
         if pathlib.Path(name).is_dir():
             res = reg.match(name)
@@ -44,7 +44,7 @@ def archive_imgs_psds():
 def get_archive_name():
     for name in os.listdir():
         if name.endswith('png') or name.endswith('mp4'):
-            return re.match('(\d+)', name)[0]
+            return re.match('(\\d+)', name)[0]
     return None
 
 if __name__ == '__main__':
