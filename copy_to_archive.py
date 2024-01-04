@@ -8,9 +8,10 @@ keys = archive / 'keys'
 finished = Path('H:/art/finished')
 temp = Path('H:/art/temp')
 
-def copy(src, dst):
-    shutil.copy2(src, dst)
-    print(f'{src} -> {dst}')
+def copy(src_file: Path, dst_dir: Path):
+    dst_dir.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(src_file, dst_dir)
+    print(f'{src_file} -> {dst_dir}')
 
 def arch_dir(file, subname):
     year = file.name[:4]
