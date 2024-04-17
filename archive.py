@@ -19,7 +19,7 @@ def get_key(key_file):
 
 def zip(archive_name, file_glob, key, multipart=None):
     parts = '-v1g' if multipart else ''
-    os.system(f'sh 7z a -m0=lzma2 -mmt=24 -mx=9 -mhe -p{key} {parts} {archive_name}.7z {file_glob}')
+    os.system(f'7z a -m0=lzma2 -mmt=24 -mx=9 -mhe -p{key} {parts} {archive_name}.7z {file_glob}')
 
 def archive_work(work_name):
     key = get_key(f'{work_name}-key.txt')

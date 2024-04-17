@@ -3,10 +3,10 @@ import shutil
 
 image_types = ['png', 'gif', 'jpg', 'mp4']
 source_types = ['psd', 'clip']
-archive = Path('H:/archives/current')
+archive = Path('~/aux/archives/current').expanduser()
 keys = archive / 'keys'
-finished = Path('H:/art/finished')
-temp = Path('H:/art/temp')
+finished = Path('~/aux/art/finished').expanduser()
+temp = Path('~/aux/art/temp').expanduser()
 
 def copy(src_file: Path, dst_dir: Path):
     dst_dir.mkdir(parents=True, exist_ok=True)
