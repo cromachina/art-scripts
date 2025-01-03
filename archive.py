@@ -4,6 +4,9 @@ import re
 import secrets
 from pathlib import Path
 
+_7z_name = '7zz'
+zip_name = 'zip'
+
 def gen_key(key_file):
     key = secrets.token_hex(16)
     with open(key_file, 'w') as f:
@@ -20,10 +23,10 @@ def get_key(key_file):
 def run_7zip(archive_name, file_glob, key=None, multipart=None):
     parts = '-v1g' if multipart else ''
     key = f'-p{key}' if key is not None else ''
-    os.system(f'7z a -m0=lzma2 -mmt=24 -mx=9 -mhe {key} {parts} {archive_name}.7z {file_glob}')
+    os.system(f'{_7z_name} -xr"!.*" a -m0=lzma2 -mmt=24 -mx=9 -mhe {key} {parts} {archive_name}.7z {file_glob}')
 
 def run_zip(archive_name, file_glob):
-    os.system(f'zip -9 -u -r {archive_name}.zip {file_glob}')
+    os.system(f'{zip_name} -9 -u -r {archive_name}.zip {file_glob}')
 
 def archive_work(work_name):
     key = get_key(f'{work_name}-key.txt')
