@@ -7,8 +7,16 @@ from pathlib import Path
 _7z_name = '7zz'
 zip_name = 'zip'
 
+def letters(start, end):
+    return list(map(chr, range(ord(start), ord(end) + 1)))
+
+chars = letters('a', 'z') + letters('0', '9')
+
+def gen_pw(size):
+    return "".join([secrets.choice(chars) for _ in range(size)])
+
 def gen_key(key_file):
-    key = secrets.token_hex(16)
+    key = gen_pw(6)
     with open(key_file, 'w') as f:
         f.write(key)
     return key
@@ -44,9 +52,7 @@ def archive_imgs_psds():
         if Path(name).is_dir():
             res = reg.match(name)
             if res is not None:
-                year = res[0]
-                key_file = f'{year}-archive'
-                archive_everything(name, key_file)
+                archive_everything(name, 'archive')
 
 def archive_doujin(name):
     key = gen_key(f'{name}-key.txt')
