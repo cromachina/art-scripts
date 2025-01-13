@@ -3,6 +3,7 @@ import os
 import re
 import secrets
 from pathlib import Path
+from PIL import Image, ImageFont, ImageDraw
 
 _7z_name = '7zz'
 zip_name = 'zip'
@@ -28,6 +29,23 @@ def get_key(key_file):
     else:
         return gen_key(key_file)
 
+def make_key_image(key, in_file:Path, out_file:Path):
+    image = Image.open(in_file)
+    fontsize = min(image.size) // 50
+    offset = fontsize // 4
+    ctx = ImageDraw.Draw(image)
+    ctx.text(
+        text=key,
+        font=ImageFont.truetype('ARIALBD_1', fontsize),
+        xy=(offset, image.height - offset),
+        anchor='ld',
+        stroke_width=fontsize // 10,
+        fill=(255, 255, 255, 255),
+        stroke_fill=(0, 0, 0, 255)
+    )
+    os.makedirs(out_file.parent, exist_ok=True)
+    image.save(out_file)
+
 def run_7zip(archive_name, file_glob, key=None, multipart=None):
     parts = '-v1g' if multipart else ''
     key = f'-p{key}' if key is not None else ''
@@ -36,8 +54,17 @@ def run_7zip(archive_name, file_glob, key=None, multipart=None):
 def run_zip(archive_name, file_glob):
     os.system(f'{zip_name} -9 -u -r {archive_name}.zip {file_glob}')
 
+def get_first_censor_image():
+    files = os.listdir('censor')
+    files.sort()
+    return Path('censor') / Path(files[0])
+
 def archive_work(work_name):
     key = get_key(f'{work_name}-key.txt')
+    try:
+        make_key_image(key, get_first_censor_image(), Path('key/0.png'))
+    except:
+        pass
     run_7zip(f'{work_name}', '*.png *.mp4', key)
     run_7zip(f'{work_name}-psd', '*.psd *.clip', key)
 
