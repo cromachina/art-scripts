@@ -95,7 +95,7 @@ def get_archive_name():
             return re.match('(\\d+)', name)[0]
     return None
 
-if __name__ == '__main__':
+def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--everything', action=argparse.BooleanOptionalAction)
     parser.add_argument('--gen-key', action=argparse.BooleanOptionalAction)
@@ -111,4 +111,11 @@ if __name__ == '__main__':
     elif args.name != '':
         archive_work(args.name)
     else:
-        archive_work(get_archive_name())
+        name = get_archive_name()
+        if name == None:
+            print('No data found')
+            return
+        archive_work(name)
+
+if __name__ == '__main__':
+    main()
