@@ -54,10 +54,22 @@ def run_7zip(archive_name, file_glob, key=None, multipart=None):
 def run_zip(archive_name, file_glob):
     os.system(f'{zip_name} -9 -u -r {archive_name}.zip {file_glob}')
 
-def get_first_censor_image():
-    files = os.listdir('censor')
+def get_first_image(dir_path):
+    try:
+        files = os.listdir(dir_path)
+    except:
+        return None
+    if len(files) == 0:
+        return None
     files.sort()
-    return Path('censor') / Path(files[0])
+    return Path(dir_path) / files[0]
+
+def get_first_censor_image():
+    for dir_path in ['censor', 'bars']:
+        image_path = get_first_image(dir_path)
+        if image_path is not None:
+            return image_path
+    return None
 
 def archive_work(work_name):
     key = get_key(f'{work_name}-key.txt')
