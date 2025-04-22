@@ -1,0 +1,42 @@
+# [build-system]
+# requires = ["setuptools"]
+# build-backend = "setuptools.build_meta"
+
+# [project]
+# name = "art-scripts"
+# version = "1.0.0"
+# description = ""
+# license = { text="MIT" }
+# authors = [ { name="cromachina" } ]
+# dependencies = [
+#     "python>=3.12",
+#     "ffmpeg-python",
+#     "pillow",
+# ]
+
+# [project.scripts]
+# art-archive = "archive:main"
+# art-copy-to-archive = "copy_to_archive:main"
+
+# [tool.setuptools.packages.find]
+# where = ["./."]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "art-scripts"
+version = "1.0.0"
+description = ""
+license = "MIT"
+authors = ["cromachina"]
+requires-python = ">=3.12"
+
+[tool.poetry.dependencies]
+ffmpeg-python = "*"
+pillow = "*"
+
+[tool.poetry.scripts]
+art-archive = "art_scripts.archive:main"
+art-copy-to-archive = "art_scripts.copy_to_archive:main"

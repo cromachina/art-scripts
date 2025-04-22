@@ -18,16 +18,20 @@ def arch_dir(file, subname):
     dir = archive / f'{year}-{subname}'
     return dir
 
-for type in image_types:
-    for file in temp.glob('*.' + type):
-        images = arch_dir(file, 'images')
-        copy(file, images)
-        copy(file, finished)
+def main():
+    for type in image_types:
+        for file in temp.glob('*.' + type):
+            images = arch_dir(file, 'images')
+            copy(file, images)
+            copy(file, finished)
 
-for type in source_types:
-    for file in temp.glob('*.' + type):
-        psds = arch_dir(file, 'psds')
-        copy(file, psds)
+    for type in source_types:
+        for file in temp.glob('*.' + type):
+            psds = arch_dir(file, 'psds')
+            copy(file, psds)
 
-for file in temp.glob('*-key.txt'):
-    copy(file, keys)
+    for file in temp.glob('*-key.txt'):
+        copy(file, keys)
+
+if __name__ == '__main__':
+    main()
