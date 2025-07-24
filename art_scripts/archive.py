@@ -102,7 +102,7 @@ def archive_doujin(name):
     run_zip(f'{name}-jp', 'jp-censor')
 
 def get_archive_name():
-    for name in os.listdir():
+    for name in sorted(os.listdir()):
         if name.endswith('png') or name.endswith('mp4'):
             return re.match('(\\d+)', name)[0]
     return None
