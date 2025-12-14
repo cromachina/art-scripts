@@ -31,7 +31,7 @@ def get_key(key_file):
 
 def make_key_image(key, in_file:Path, out_file:Path):
     image = Image.open(in_file)
-    fontsize = min(image.size) // 50
+    fontsize = max(image.size) // 75
     offset = fontsize // 4
     ctx = ImageDraw.Draw(image)
     ctx.text(
