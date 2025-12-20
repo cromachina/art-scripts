@@ -29,9 +29,9 @@ def get_key(key_file):
     else:
         return gen_key(key_file)
 
-def make_key_image(key, in_file:Path, out_file:Path):
+def make_key_image(key, in_file:Path, out_file:Path, font_scale):
     image = Image.open(in_file)
-    fontsize = max(image.size) // 75
+    fontsize = int(max(image.size) * font_scale)
     offset = fontsize // 4
     ctx = ImageDraw.Draw(image)
     ctx.text(
@@ -71,10 +71,10 @@ def get_first_censor_image():
             return image_path
     return None
 
-def archive_work(work_name):
+def archive_work(work_name, font_scale):
     key = get_key(f'{work_name}-key.txt')
     try:
-        make_key_image(key, get_first_censor_image(), Path('key/0.png'))
+        make_key_image(key, get_first_censor_image(), Path('key/0.png'), font_scale)
     except:
         pass
     run_7zip(f'{work_name}', f'{work_name} *.png *.mp4 *.psd *.clip *.kra', key)
@@ -112,6 +112,7 @@ def main():
     parser.add_argument('--gen-key', action=argparse.BooleanOptionalAction)
     parser.add_argument('--name', type=str, default='')
     parser.add_argument('--doujin', action=argparse.BooleanOptionalAction)
+    parser.add_argument('--font-scale', type=float, default=0.02)
     args = parser.parse_args()
     if args.everything:
         archive_imgs_psds()
@@ -119,14 +120,15 @@ def main():
         gen_key(args.name)
     elif args.doujin:
         archive_doujin(args.name)
-    elif args.name != '':
-        archive_work(args.name)
     else:
-        name = get_archive_name()
-        if name == None:
-            print('No data found')
-            return
-        archive_work(name)
+        if args.name != '':
+            name = args.name
+        else:
+            name = get_archive_name()
+            if name == None:
+                print('No data found')
+                return
+        archive_work(name, args.font_scale)
 
 if __name__ == '__main__':
     main()
