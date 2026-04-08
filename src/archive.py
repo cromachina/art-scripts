@@ -11,7 +11,7 @@ zip_name = 'zip'
 def letters(start, end):
     return list(map(chr, range(ord(start), ord(end) + 1)))
 
-chars = letters('a', 'z') + letters('0', '9')
+chars = list(filter(lambda x: x not in ['l', 'o'], letters('a', 'z') + letters('2', '9')))
 
 def gen_pw(size):
     return "".join([secrets.choice(chars) for _ in range(size)])

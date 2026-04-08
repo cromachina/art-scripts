@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "art-scripts"
-version = "1.0.1"
+version = "1.0.2"
 description = ""
 license = { text="MIT" }
 authors = [ { name="cromachina" } ]
@@ -15,8 +15,7 @@ dependencies = [
 ]
 
 [project.scripts]
-art-archive = "art_scripts.archive:main"
-art-copy-to-archive = "art_scripts.copy_to_archive:main"
-
-[tool.setuptools.packages.find]
-where = ["./."]
+art-archive = "archive:main"
+copy-to-archive = "copy_to_archive:main"
+hash-rename = "hash_rename:main"
+del-frames = "del_frames:main"

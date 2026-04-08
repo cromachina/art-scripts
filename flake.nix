@@ -13,12 +13,11 @@
     let
       pkgs = nixpkgs.legacyPackages.${system};
       lib = pkgs.lib;
-      python = pkgs.python313;
-      pyPkgs = python.pkgs;
-      pyproject = builtins.fromTOML (builtins.readFile ./pyproject.toml);
+      pyPkgs = pkgs.python314Packages;
+      pyproject = fromTOML (builtins.readFile ./pyproject.toml);
       project = pyproject.project;
       fixString = x: lib.strings.toLower (builtins.replaceStrings ["_"] ["-"] x);
-      getPkgs = x: lib.attrsets.attrVals (builtins.map fixString x) pyPkgs;
+      getPkgs = x: lib.attrsets.attrVals (map fixString x) pyPkgs;
       package = pyPkgs.buildPythonPackage {
         pname = project.name;
         version = project.version;
@@ -31,7 +30,7 @@
         pname = project.name;
         version = project.version;
         scripts = project.scripts;
-        root = "$PWD/art_scripts";
+        root = "$PWD/src";
       };
     in
     {
