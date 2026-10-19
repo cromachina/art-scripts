@@ -77,7 +77,7 @@ def archive_work(work_name, font_scale):
         make_key_image(key, get_first_censor_image(), Path('key/0.png'), font_scale)
     except:
         pass
-    run_7zip(f'{work_name}', f'{work_name} *.png *.mp4 *.psd *.clip *.kra', key)
+    run_7zip(f'{work_name}', f'{work_name} *.webm *.webp *.png *.mp4 *.psd *.clip *.kra', key)
 
 def archive_everything(archive_name, key=None):
     if key == None:
